@@ -1,0 +1,70 @@
+Para importar um arquivo js no html é só usar:
+<script src="index.js"></script>
+Geralmente o import do js é aplicado no final do documento html (dentro do body) para que os elementos do html carreguem antes do js ser aplicado. Outra opção é a utilização do defer que sinalzia para o documento que o js deve ser aplicado depois do documento carregar
+<script defer src="index.js"></script>
+
+document.getElementById("input-item") - pega as informações do elemento do html com esse id
+
+Para monitorar um evento no html pelo js é só:
+const botaoAdicionar = document.getElementById("adicionar-item");
+
+botaoAdicionar.addEventListener("click", (evento) => {
+    console.log(evento.target) -> o target pega a informação do elemento atrelado aquele botão
+})
+
+evento.preventDefault() -> previne a atualização padrão que acontece na tela ao enviar um formulario
+
+Para criar e atribuir uma classe a um elemento em html é só:
+const containerItemDaLista = document.createElement("div");
+containerItemDaLista.classList.add("lista-item-container"); 
+
+para adicionar id ou type:
+inputCheckbox.type = "checkbox";
+inputCheckbox.id = "checkbox-" + contador++;
+
+const é uma "variavel" constante já o let pode ter o valor alterado
+
+para adicionar valor no campo texto:
+nomeItem.innerText = inputItem.value;
+
+Para conectar os itens criados anteriormente (sempre do item que estara mais fundo na "arvore" de elementos até a que está mais para fora):
+containerItemDaLista.appendChild(inputCheckbox);
+containerItemDaLista.appendChild(nomeItem);
+
+itemDalista.appendChild(containerItemDaLista);
+
+Para pegar e formatar o dia atual é só:
+const diaDaSemana = new Date().toLocaleDateString("pt-BR", {
+    weekday: "long"
+});
+const data = new Date().toLocaleDateString("pt-BR");
+const dataCompleta = `${diaDaSemana} (${data})`; -> outra forma de formatar uma string com variaveis
+
+para adicionar estilização em um item pelo js:
+inputCheckbox.addEventListener("click", function(){
+    if(inputCheckbox.checked){
+        nomeItem.style.textDecoration = "line-through"; -> cria um risco no elemento
+    }else{
+        nomeItem.style.textDecoration = "none"
+    }
+});
+
+const mensagemListaVazia = document.querySelector(".mensagem-lista-vazia"); -> querySelector funciona igual o css, . para classes e # para ids ou o nome da tag html (pega somente o primeiro elemento)
+
+Forma de verificar se uma lista tem itens ou não
+const itensDaLista = listaDeCompras.querySelectorAll("li"); -> pega todos os elementos
+if (itensDaLista.length === 0) {
+    mensagemListaVazia.style.display = "block";
+} else {
+    mensagemListaVazia.style.display = "none";
+}
+
+para importar funções js precisa:
+export function criarItemDaLista() -> adicionar no aquivo que vc quer exportar a função
+import { criarItemDaLista } from "./scripts/criarItemDaLista"; -> adicionar no arquivo que você quer importar (dentro das chaves fica o nome da função)
+<script src="index.js" type="module"></script> -> adicioanr o type="module" dentro da tag script no html e não precisa mais usar o defer
+
+O modo de import anterior é feito para exportar varios metodos, para exportar apenas um e importar é só fazer o seguinte:
+
+export default gerarDiaDaSemana; -> no fim do documento que tera o export
+import gerarDiaDaSemana from "./gerarDiaDaSemana.js"; -> no inicio do documento que fara o import
